@@ -5,19 +5,34 @@
 
 import React, { useState, useEffect } from "react";
 import { AnimatePresence } from "motion/react";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Header from "./components/Header";
 import HomeSection from "./components/HomeSection";
 import ProjectGrid from "./components/ProjectGrid";
 import BlogSection from "./components/BlogSection";
 import MessagesSection from "./components/MessagesSection";
+import Login from "./pages/Login";
+import AdminDashboard from "./pages/AdminDashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 import { DEFAULT_PROJECTS, DEFAULT_BLOGS } from "./defaultData";
 import { Project, BlogPost, ContactMessage } from "./types";
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<"home" | "projects" | "blog" | "messages">("home");
+  const location = useLocation();
+  
+  const getActiveTabFromPath = () => {
+    switch(location.pathname) {
+      case '/': return 'home';
+      case '/projects': return 'projects';
+      case '/blog': return 'blog';
+      case '/messages': return 'messages';
+      default: return 'home'; // fallback for /login or /admin if needed
+    }
+  };
+  
+  const activeTab = getActiveTabFromPath();
 
-  // State handles
   const [projects, setProjects] = useState<Project[]>([]);
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [messages, setMessages] = useState<ContactMessage[]>([]);
@@ -126,58 +141,69 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-150 flex flex-col lg:flex-row antialiased select-text">
-      {/* Sidebar Core Hub Navigation */}
-      <Navigation
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        messageCount={messages.length}
-      />
+      {/* Hide Navigation on standalone pages like Login or Admin if desired, but we'll show it for now */}
+      {!['/login', '/admin'].includes(location.pathname) && (
+        <Navigation
+          activeTab={activeTab as "home" | "projects" | "blog" | "messages"}
+          messageCount={messages.length}
+        />
+      )}
 
       {/* Main Console Stage */}
       <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Dynamic Telemetry Header */}
-        <Header activeTab={activeTab} />
+        {!['/login', '/admin'].includes(location.pathname) && (
+          <Header activeTab={activeTab as "home" | "projects" | "blog" | "messages"} />
+        )}
 
         {/* Console Workspace Area */}
         <main className="flex-1 overflow-y-auto bg-[#070708] border-l border-zinc-900/60">
           <AnimatePresence mode="wait">
-            {activeTab === "home" && (
-              <HomeSection
-                key="home"
-                onContactMessageSubmit={handleAddContactMessage}
-                projectsCount={projects.length}
-                blogsCount={blogs.length}
-              />
-            )}
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={
+                <HomeSection
+                  onContactMessageSubmit={handleAddContactMessage}
+                  projectsCount={projects.length}
+                  blogsCount={blogs.length}
+                />
+              } />
 
-            {activeTab === "projects" && (
-              <ProjectGrid
-                key="projects"
-                projects={projects}
-                onAddProject={handleAddProject}
-                onDeleteProject={handleDeleteProject}
-                onResetProjects={handleResetProjects}
-              />
-            )}
+              <Route path="/projects" element={
+                <ProjectGrid
+                  projects={projects}
+                  onAddProject={handleAddProject}
+                  onDeleteProject={handleDeleteProject}
+                  onResetProjects={handleResetProjects}
+                />
+              } />
 
-            {activeTab === "blog" && (
-              <BlogSection
-                key="blog"
-                blogs={blogs}
-                onAddBlog={handleAddBlog}
-                onDeleteBlog={handleDeleteBlog}
-                onResetBlogs={handleResetBlogs}
-              />
-            )}
+              <Route path="/blog" element={
+                <BlogSection
+                  blogs={blogs}
+                  onAddBlog={handleAddBlog}
+                  onDeleteBlog={handleDeleteBlog}
+                  onResetBlogs={handleResetBlogs}
+                />
+              } />
 
-            {activeTab === "messages" && (
-              <MessagesSection
-                key="messages"
-                messages={messages}
-                onDeleteMessage={handleDeleteMessage}
-                onClearAllMessages={handleClearAllMessages}
-              />
-            )}
+              <Route path="/messages" element={
+                <MessagesSection
+                  messages={messages}
+                  onDeleteMessage={handleDeleteMessage}
+                  onClearAllMessages={handleClearAllMessages}
+                />
+              } />
+
+              <Route path="/login" element={<Login />} />
+              
+              <Route path="/admin" element={
+                <ProtectedRoute>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              } />
+              
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
           </AnimatePresence>
         </main>
       </div>

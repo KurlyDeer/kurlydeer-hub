@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Search, Plus, Filter, Github, Globe, Calendar, Terminal, X, ChevronRight, RefreshCw, Trash2 } from "lucide-react";
+import { Search, Plus, Filter, Github, Globe, Calendar, Terminal, X, ChevronRight, RefreshCw, Trash2, Server, Code, Smartphone, Network } from "lucide-react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Project } from "../types";
@@ -22,7 +22,7 @@ export default function ProjectGrid({ projects, onAddProject, onDeleteProject, o
   const [newProj, setNewProj] = useState({
     title: "",
     description: "",
-    category: "Full-Stack" as Project["category"],
+    category: "Software Development" as Project["category"],
     status: "In Progress" as Project["status"],
     technologies: "",
     githubUrl: "",
@@ -30,7 +30,35 @@ export default function ProjectGrid({ projects, onAddProject, onDeleteProject, o
     readme: ""
   });
 
-  const categories = ["All", "Full-Stack", "AI & Labs", "Systems & CLI", "Hardware & IoT", "Misc"];
+  const categories = ["All", "Enterprise Infrastructure", "Software Development", "Networking", "Mobile Apps"];
+
+  const getCategoryIcon = (category: string) => {
+    switch (category) {
+      case "Enterprise Infrastructure":
+      case "Systems & CLI":
+        return <Server className="h-4 w-4 text-indigo-400 shrink-0" />;
+      case "Networking":
+        return <Network className="h-4 w-4 text-blue-400 shrink-0" />;
+      case "Mobile Apps":
+        return <Smartphone className="h-4 w-4 text-emerald-400 shrink-0" />;
+      default:
+        return <Code className="h-4 w-4 text-emerald-400 shrink-0" />;
+    }
+  };
+
+  const getCategoryColor = (category: string) => {
+    switch (category) {
+      case "Enterprise Infrastructure":
+      case "Systems & CLI":
+        return "group-hover:bg-indigo-500/20";
+      case "Networking":
+        return "group-hover:bg-blue-500/20";
+      case "Mobile Apps":
+        return "group-hover:bg-emerald-500/20";
+      default:
+        return "group-hover:bg-emerald-500/20";
+    }
+  };
 
   // Filter project arrays
   const filteredProjects = projects.filter((proj) => {
@@ -168,15 +196,17 @@ export default function ProjectGrid({ projects, onAddProject, onDeleteProject, o
               layout
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
+              whileHover={{ y: -4, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3)" }}
               transition={{ duration: 0.2 }}
-              className="bg-zinc-900 border border-zinc-800 hover:border-zinc-700 p-5 rounded-2xl flex flex-col justify-between transition-all duration-200 relative group overflow-hidden"
+              className="bg-zinc-900 border border-zinc-800 hover:border-zinc-700 p-5 rounded-2xl flex flex-col justify-between transition-all duration-200 relative group overflow-hidden shadow-lg"
             >
               {/* Category indicator line */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-emerald-500/0 group-hover:bg-emerald-500/20 transition-all"></div>
+              <div className={\`absolute top-0 left-0 right-0 h-[2px] bg-transparent \${getCategoryColor(proj.category)} transition-all\`}></div>
 
               <div>
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex items-center gap-1.5">
+                    {getCategoryIcon(proj.category)}
                     <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest">{proj.category}</span>
                   </div>
                   <span className={`text-[9px] font-mono font-semibold px-2 py-0.5 rounded border ${getStatusColor(proj.status)}`}>
@@ -332,10 +362,10 @@ export default function ProjectGrid({ projects, onAddProject, onDeleteProject, o
                       onChange={(e) => setNewProj({ ...newProj, category: e.target.value as Project["category"] })}
                       className="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-2.5 text-xs text-zinc-200 outline-none focus:border-emerald-500 transition cursor-pointer"
                     >
-                      <option value="Full-Stack">Full-Stack</option>
-                      <option value="AI & Labs">AI & Labs</option>
-                      <option value="Systems & CLI">Systems & CLI</option>
-                      <option value="Hardware & IoT">Hardware & IoT</option>
+                      <option value="Enterprise Infrastructure">Enterprise Infrastructure</option>
+                      <option value="Networking">Networking</option>
+                      <option value="Software Development">Software Development</option>
+                      <option value="Mobile Apps">Mobile Apps</option>
                       <option value="Misc">Misc</option>
                     </select>
                   </div>

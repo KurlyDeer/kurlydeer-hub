@@ -59,11 +59,11 @@ export default function HomeSection({ onContactMessageSubmit, projectsCount, blo
   };
 
   const skills = [
-    { name: "TypeScript / React", category: "Frontend", level: 95, icon: Code },
-    { name: "Go / Systems", category: "Core Backend", level: 90, icon: Server },
-    { name: "Rust / Embedded", category: "Systems", level: 85, icon: Cpu },
-    { name: "PostgreSQL & Redis", category: "Databases", level: 88, icon: Database },
-    { name: "Docker & Kubernetes", category: "Platform Dev", level: 80, icon: Globe },
+    { name: "Cisco / Fortinet", category: "Networking", level: 95, icon: Globe },
+    { name: "Proxmox / TrueNAS", category: "Virtualization", level: 90, icon: Server },
+    { name: "Python", category: "Backend Dev", level: 88, icon: Terminal },
+    { name: "Flutter / Dart", category: "Mobile Dev", level: 85, icon: Code },
+    { name: "TypeScript / React", category: "Frontend Dev", level: 80, icon: Code },
   ];
 
   return (
@@ -100,44 +100,47 @@ export default function HomeSection({ onContactMessageSubmit, projectsCount, blo
                 </span>
               </div>
               <h3 className="font-display font-bold text-2xl text-zinc-100 mt-1">
-                Christian Lopez Robles
+                KurlyDeer
               </h3>
               <p className="font-sans text-xs text-zinc-400 font-medium">
-                Core Systems Architect & Full-Stack Engineer
+                Hybrid Systems Administrator & Full-Stack Developer
               </p>
             </div>
           </div>
 
           <div className="mt-6 space-y-4">
             <p className="font-sans text-sm text-zinc-300 leading-relaxed">
-              Welcome to my digital workshop room. I design performant distributed software, compile lightweight binaries to edge microcontrollers, and construct single-page responsive user hubs. This site showcases live code lab status modules and architectural technical diaries built on strict correctness policies.
+              Hybrid Systems Administrator & Full-Stack Developer bridging the gap between high-availability enterprise infrastructure and polished cross-platform applications. Specializing in Cisco/Fortinet network architectures, Proxmox virtualization, and modern software development with Python and Flutter.
             </p>
             
             <div className="flex items-center gap-2">
               <span className="font-mono text-[11px] text-zinc-500">Contact Node:</span>
               <div className="flex gap-2">
-                <a
+                <motion.a
+                  whileHover={{ scale: 1.05 }}
                   href="mailto:christianlopezrobles34@gmail.com"
                   className="p-1 px-2 hover:bg-zinc-800 text-zinc-400 hover:text-emerald-400 rounded border border-zinc-800 hover:border-zinc-700 transition flex items-center gap-1.5 font-mono text-[10px]"
                 >
                   <Mail className="h-3 w-3" /> Email
-                </a>
-                <a
+                </motion.a>
+                <motion.a
+                  whileHover={{ scale: 1.05 }}
                   href="https://github.com"
                   target="_blank"
                   referrerPolicy="no-referrer"
                   className="p-1 px-2 hover:bg-zinc-800 text-zinc-400 hover:text-emerald-400 rounded border border-zinc-800 hover:border-zinc-700 transition flex items-center gap-1.5 font-mono text-[10px]"
                 >
                   <Github className="h-3 w-3" /> GitHub
-                </a>
-                <a
+                </motion.a>
+                <motion.a
+                  whileHover={{ scale: 1.05 }}
                   href="https://linkedin.com"
                   target="_blank"
                   referrerPolicy="no-referrer"
                   className="p-1 px-2 hover:bg-zinc-800 text-zinc-400 hover:text-emerald-400 rounded border border-zinc-800 hover:border-zinc-700 transition flex items-center gap-1.5 font-mono text-[10px]"
                 >
                   <Linkedin className="h-3 w-3" /> LinkedIn
-                </a>
+                </motion.a>
               </div>
             </div>
           </div>
@@ -190,7 +193,7 @@ export default function HomeSection({ onContactMessageSubmit, projectsCount, blo
                         initial={{ width: 0 }}
                         animate={{ width: `${skill.level}%` }}
                         transition={{ duration: 1, ease: "easeOut" }}
-                        className="bg-emerald-400 h-full rounded-full"
+                        className="bg-emerald-400 h-full rounded-full animate-shimmer"
                       />
                     </div>
                   </div>
@@ -347,9 +350,11 @@ export default function HomeSection({ onContactMessageSubmit, projectsCount, blo
                 </div>
               )}
 
-              <button
+              <motion.button
                 id="contact-submit-btn"
                 type="submit"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 disabled={isSending}
                 className="w-full bg-emerald-500 hover:bg-emerald-400 text-zinc-950 hover:shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all font-sans font-semibold text-xs py-2.5 rounded-lg flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
               >
@@ -364,7 +369,7 @@ export default function HomeSection({ onContactMessageSubmit, projectsCount, blo
                     <span>Send Packet</span>
                   </>
                 )}
-              </button>
+              </motion.button>
             </form>
           </div>
 
