@@ -11,7 +11,7 @@ import HomeSection from "./components/HomeSection";
 import ProjectGrid from "./components/ProjectGrid";
 import BlogSection from "./components/BlogSection";
 import MessagesSection from "./components/MessagesSection";
-import { DEFAULT_PROJECTS, DEFAULT_BLOGS } from "./data/defaultData";
+import { DEFAULT_PROJECTS, DEFAULT_BLOGS } from "./defaultData";
 import { Project, BlogPost, ContactMessage } from "./types";
 
 export default function App() {
