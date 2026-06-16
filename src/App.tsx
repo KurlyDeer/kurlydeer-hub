@@ -13,7 +13,7 @@ import ProjectGrid from "@/components/ProjectGrid.tsx";
 import BlogSection from "@/components/BlogSection.tsx";
 import MessagesSection from "@/components/MessagesSection.tsx";
 import Login from "@/pages/Login.tsx";
-import AdminDashboard from "@/pages/AdminDashboard.tsx";
+import AdminDashboard from "@/components/AdminDashboard.tsx";
 import ProtectedRoute from "@/components/ProtectedRoute.tsx";
 import { DEFAULT_PROJECTS, DEFAULT_BLOGS } from "@/defaultData.ts";
 import { Project, BlogPost, ContactMessage } from "@/types";
