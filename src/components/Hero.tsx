@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import { ChevronRight, Terminal, Sparkles } from "lucide-react";
+import { ChevronRight, Download, Github, Linkedin } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const TYPING_LINES = [
@@ -139,12 +139,35 @@ export default function Hero() {
               View Projects
               <ChevronRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>
-            <Link
-              to="/messages"
+            <a
+              href="#"
               className="inline-flex items-center gap-2 px-6 py-3 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-zinc-300 hover:text-zinc-100 font-display font-bold text-sm rounded-lg transition-all duration-200"
             >
-              Contact Me
-            </Link>
+              <Download className="h-4 w-4" />
+              Download Resume
+            </a>
+          </div>
+
+          {/* Social Links */}
+          <div className="flex items-center gap-4 pt-1">
+            <a
+              href="https://www.linkedin.com/in/kurlydeer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-9 w-9 bg-zinc-900 border border-zinc-800 rounded-lg flex items-center justify-center text-zinc-500 hover:text-zinc-200 hover:border-zinc-700 transition-all"
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="h-4 w-4" />
+            </a>
+            <a
+              href="https://github.com/KurlyDeer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-9 w-9 bg-zinc-900 border border-zinc-800 rounded-lg flex items-center justify-center text-zinc-500 hover:text-zinc-200 hover:border-zinc-700 transition-all"
+              aria-label="GitHub"
+            >
+              <Github className="h-4 w-4" />
+            </a>
           </div>
         </motion.div>
       </div>

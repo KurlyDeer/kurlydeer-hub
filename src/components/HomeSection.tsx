@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { Mail, AlertCircle, Terminal } from "lucide-react";
 import { ContactMessage } from "@/types";
 import Hero from "@/components/Hero";
+import AboutMe from "@/components/AboutMe";
 import ProjectsGrid from "@/components/ProjectsGrid";
 import Infrastructure from "@/components/Infrastructure";
 import BlogTeaser from "@/components/BlogTeaser";
@@ -59,7 +60,15 @@ export default function HomeSection({ onContactMessageSubmit, projectsCount, blo
         <div className="h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent" />
       </div>
 
-      {/* 2. Software Engineering Projects */}
+      {/* 2. About Me */}
+      <AboutMe />
+
+      {/* Divider */}
+      <div className="max-w-5xl mx-auto px-6">
+        <div className="h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent" />
+      </div>
+
+      {/* 3. Software Engineering Projects */}
       <ProjectsGrid />
 
       {/* Divider */}
