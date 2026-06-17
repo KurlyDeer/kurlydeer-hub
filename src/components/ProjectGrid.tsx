@@ -201,7 +201,7 @@ export default function ProjectGrid({ projects, onAddProject, onDeleteProject, o
               className="bg-zinc-900 border border-zinc-800 hover:border-zinc-700 p-5 rounded-2xl flex flex-col justify-between transition-all duration-200 relative group overflow-hidden shadow-lg"
             >
               {/* Category indicator line */}
-              <div className={\`absolute top-0 left-0 right-0 h-[2px] bg-transparent \${getCategoryColor(proj.category)} transition-all\`}></div>
+                <div className={`absolute top-0 left-0 right-0 h-[2px] bg-transparent ${getCategoryColor(proj.category)} transition-all`}></div>
 
               <div>
                 <div className="flex items-start justify-between gap-2">
