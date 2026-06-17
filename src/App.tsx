@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence } from "motion/react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
-import Navigation from "./components/Navigation.tsx";
+import Navigation from "./components/Navigation.tsx?v=1";
 import Header from "./components/Header.tsx";
 import HomeSection from "./components/HomeSection.tsx";
 import ProjectGrid from "./components/ProjectGrid.tsx";
