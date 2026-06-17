@@ -12,7 +12,11 @@ const TYPING_LINES = [
   "> 8+ years | Systems · Networking · Code",
 ];
 
-export default function Hero() {
+interface HeroProps {
+  onContactClick: () => void;
+}
+
+export default function Hero({ onContactClick }: HeroProps) {
   const [displayedLines, setDisplayedLines] = useState<string[]>([]);
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
@@ -139,13 +143,12 @@ export default function Hero() {
               View Projects
               <ChevronRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>
-            <a
-              href="#"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-zinc-300 hover:text-zinc-100 font-display font-bold text-sm rounded-lg transition-all duration-200"
+            <button
+              onClick={onContactClick}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-zinc-300 hover:text-zinc-100 font-display font-bold text-sm rounded-lg transition-all duration-200 cursor-pointer"
             >
-              <Download className="h-4 w-4" />
-              Download Resume
-            </a>
+              Contact Me
+            </button>
           </div>
 
           {/* Social Links */}

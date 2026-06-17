@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "motion/react";
 import { Server, Shield, HardDrive, Network, Cpu, Activity, CheckCircle2, ArrowRight } from "lucide-react";
+import SystemStatus from "@/components/SystemStatus";
 
 const INFRA_NODES = [
   {
@@ -154,6 +155,11 @@ export default function Infrastructure() {
             </div>
           </div>
         </motion.div>
+
+        {/* System Status Widget */}
+        <div className="mt-12 flex justify-center">
+          <SystemStatus />
+        </div>
       </div>
     </section>
   );

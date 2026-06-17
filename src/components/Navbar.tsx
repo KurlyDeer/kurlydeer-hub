@@ -1,7 +1,11 @@
 import React from "react";
 import { motion } from "motion/react";
 
-export default function Navbar() {
+interface NavbarProps {
+  onContactClick: () => void;
+}
+
+export default function Navbar({ onContactClick }: NavbarProps) {
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     const element = document.getElementById(id);
@@ -50,6 +54,16 @@ export default function Navbar() {
             className="font-mono text-[11px] text-zinc-400 hover:text-emerald-400 uppercase tracking-wider transition-colors font-medium"
           >
             Infrastructure
+          </a>
+          <a
+            href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              onContactClick();
+            }}
+            className="font-mono text-[11px] text-zinc-450 hover:text-emerald-400 uppercase tracking-wider transition-colors font-semibold"
+          >
+            Contact
           </a>
         </nav>
       </div>

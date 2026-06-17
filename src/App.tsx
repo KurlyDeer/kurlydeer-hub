@@ -18,6 +18,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import NotFound from "@/components/NotFound";
+import ContactDrawer from "@/components/ContactDrawer";
 import { DEFAULT_PROJECTS, DEFAULT_BLOGS } from "@/defaultData";
 import { Project, BlogPost, ContactMessage } from "@/types";
 
@@ -35,6 +36,7 @@ export default function App() {
   };
   
   const activeTab = getActiveTabFromPath();
+  const [isContactDrawerOpen, setIsContactDrawerOpen] = useState(false);
 
   const [projects, setProjects] = useState<Project[]>([]);
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
@@ -158,7 +160,7 @@ export default function App() {
       {/* Main Console Stage */}
       <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Sticky top Navbar for Homepage */}
-        {isHomepagePath && <Navbar />}
+        {isHomepagePath && <Navbar onContactClick={() => setIsContactDrawerOpen(true)} />}
 
         {/* Dynamic Telemetry Header for Console dashboard routes */}
         {isConsolePath && (
@@ -174,6 +176,7 @@ export default function App() {
                   onContactMessageSubmit={handleAddContactMessage}
                   projectsCount={projects.length}
                   blogsCount={blogs.length}
+                  onContactClick={() => setIsContactDrawerOpen(true)}
                 />
               } />
 
@@ -219,6 +222,13 @@ export default function App() {
         {/* Footer for Homepage */}
         {isHomepagePath && <Footer />}
       </div>
+
+      {/* Slide-out Contact Drawer */}
+      <ContactDrawer
+        isOpen={isContactDrawerOpen}
+        onClose={() => setIsContactDrawerOpen(false)}
+        onSubmit={(data) => handleAddContactMessage({ ...data, subject: "Secure Drawer Transmission" })}
+      />
     </div>
   );
 }

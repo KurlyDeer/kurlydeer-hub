@@ -7,14 +7,16 @@ import AboutMe from "@/components/AboutMe";
 import ProjectsGrid from "@/components/ProjectsGrid";
 import Infrastructure from "@/components/Infrastructure";
 import BlogTeaser from "@/components/BlogTeaser";
+import TechMarquee from "@/components/TechMarquee";
 
 interface HomeSectionProps {
   onContactMessageSubmit: (msg: Omit<ContactMessage, "id" | "createdAt">) => void;
   projectsCount: number;
   blogsCount: number;
+  onContactClick: () => void;
 }
 
-export default function HomeSection({ onContactMessageSubmit, projectsCount, blogsCount }: HomeSectionProps) {
+export default function HomeSection({ onContactMessageSubmit, projectsCount, blogsCount, onContactClick }: HomeSectionProps) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -53,7 +55,10 @@ export default function HomeSection({ onContactMessageSubmit, projectsCount, blo
       transition={{ duration: 0.3 }}
     >
       {/* 1. Hero Section */}
-      <Hero />
+      <Hero onContactClick={onContactClick} />
+
+      {/* Tech Marquee */}
+      <TechMarquee />
 
       {/* Divider */}
       <div className="max-w-5xl mx-auto px-6">
@@ -61,7 +66,14 @@ export default function HomeSection({ onContactMessageSubmit, projectsCount, blo
       </div>
 
       {/* 2. About Me */}
-      <AboutMe />
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true, margin: "-100px" }}
+      >
+        <AboutMe />
+      </motion.div>
 
       {/* Divider */}
       <div className="max-w-5xl mx-auto px-6">
@@ -69,7 +81,14 @@ export default function HomeSection({ onContactMessageSubmit, projectsCount, blo
       </div>
 
       {/* 3. Software Engineering Projects */}
-      <ProjectsGrid />
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true, margin: "-100px" }}
+      >
+        <ProjectsGrid />
+      </motion.div>
 
       {/* Divider */}
       <div className="max-w-5xl mx-auto px-6">
@@ -77,7 +96,14 @@ export default function HomeSection({ onContactMessageSubmit, projectsCount, blo
       </div>
 
       {/* 3. Infrastructure & Homelab */}
-      <Infrastructure />
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true, margin: "-100px" }}
+      >
+        <Infrastructure />
+      </motion.div>
 
       {/* Divider */}
       <div className="max-w-5xl mx-auto px-6">
