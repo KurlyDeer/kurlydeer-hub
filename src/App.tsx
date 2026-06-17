@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from "react";
 import { AnimatePresence } from "motion/react";
-import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Header from "@/components/Header";
 import HomeSection from "@/components/HomeSection";
@@ -15,6 +15,9 @@ import MessagesSection from "@/components/MessagesSection";
 import Login from "@/components/Login";
 import AdminDashboard from "@/components/AdminDashboard";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import NotFound from "@/components/NotFound";
 import { DEFAULT_PROJECTS, DEFAULT_BLOGS } from "@/defaultData";
 import { Project, BlogPost, ContactMessage } from "@/types";
 
@@ -139,10 +142,13 @@ export default function App() {
     saveMessagesToLocalStorage([]);
   };
 
+  const isConsolePath = ["/projects", "/blog", "/messages"].includes(location.pathname);
+  const isHomepagePath = location.pathname === "/";
+
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-150 flex flex-col lg:flex-row antialiased select-text">
-      {/* Hide Navigation on standalone pages like Login or Admin if desired, but we'll show it for now */}
-      {!['/login', '/admin'].includes(location.pathname) && (
+    <div className={`min-h-screen bg-zinc-950 text-zinc-150 flex antialiased select-text ${isConsolePath ? "flex-col lg:flex-row" : "flex-col"}`}>
+      {/* Show Navigation Console Sidebar only on console dashboard routes */}
+      {isConsolePath && (
         <Navigation
           activeTab={activeTab as "home" | "projects" | "blog" | "messages"}
           messageCount={messages.length}
@@ -151,13 +157,16 @@ export default function App() {
 
       {/* Main Console Stage */}
       <div className="flex-1 flex flex-col overflow-hidden min-w-0">
-        {/* Dynamic Telemetry Header */}
-        {!['/login', '/admin'].includes(location.pathname) && (
+        {/* Sticky top Navbar for Homepage */}
+        {isHomepagePath && <Navbar />}
+
+        {/* Dynamic Telemetry Header for Console dashboard routes */}
+        {isConsolePath && (
           <Header activeTab={activeTab as "home" | "projects" | "blog" | "messages"} />
         )}
 
         {/* Console Workspace Area */}
-        <main className="flex-1 overflow-y-auto bg-[#070708] border-l border-zinc-900/60">
+        <main className={`flex-1 overflow-y-auto bg-[#070708] ${isConsolePath ? "border-l border-zinc-900/60" : ""}`}>
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={
@@ -202,10 +211,13 @@ export default function App() {
                 </ProtectedRoute>
               } />
               
-              <Route path="*" element={<Navigate to="/" replace />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </AnimatePresence>
         </main>
+
+        {/* Footer for Homepage */}
+        {isHomepagePath && <Footer />}
       </div>
     </div>
   );

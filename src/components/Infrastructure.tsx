@@ -43,7 +43,7 @@ const MIGRATION_STEPS = [
 
 export default function Infrastructure() {
   return (
-    <section className="px-6 py-20">
+    <section id="infrastructure" className="px-6 py-20">
       <div className="max-w-5xl mx-auto">
         {/* Section Header */}
         <motion.div

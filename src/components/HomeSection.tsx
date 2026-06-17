@@ -209,15 +209,6 @@ export default function HomeSection({ onContactMessageSubmit, projectsCount, blo
           </motion.form>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="px-6 py-8 border-t border-zinc-900/60">
-        <div className="max-w-5xl mx-auto text-center">
-          <p className="font-mono text-[10px] text-zinc-600 uppercase tracking-widest">
-            &copy; {new Date().getFullYear()} Christian &middot; Built with React, Vite &amp; Supabase
-          </p>
-        </div>
-      </footer>
     </motion.div>
   );
 }
