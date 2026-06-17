@@ -6,17 +6,17 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence } from "motion/react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
-import Navigation from "@/components/Navigation";
-import Header from "@/components/Header";
-import HomeSection from "@/components/HomeSection";
-import ProjectGrid from "@/components/ProjectGrid";
-import BlogSection from "@/components/BlogSection";
-import MessagesSection from "@/components/MessagesSection";
-import Login from "@/pages/Login";
-import AdminDashboard from "@/components/AdminDashboard";
-import ProtectedRoute from "@/components/ProtectedRoute";
-import { DEFAULT_PROJECTS, DEFAULT_BLOGS } from "@/defaultData";
-import { Project, BlogPost, ContactMessage } from "@/types";
+import Navigation from "./components/Navigation.tsx";
+import Header from "./components/Header.tsx";
+import HomeSection from "./components/HomeSection.tsx";
+import ProjectGrid from "./components/ProjectGrid.tsx";
+import BlogSection from "./components/BlogSection.tsx";
+import MessagesSection from "./components/MessagesSection.tsx";
+import Login from "./pages/Login.tsx";
+import AdminDashboard from "./components/AdminDashboard.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import { DEFAULT_PROJECTS, DEFAULT_BLOGS } from "./defaultData.ts";
+import { Project, BlogPost, ContactMessage } from "./types.ts";
 
 export default function App() {
   const location = useLocation();
