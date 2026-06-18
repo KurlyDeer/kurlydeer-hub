@@ -71,7 +71,7 @@ export default function Infrastructure() {
         </motion.div>
 
         {/* Infrastructure Node Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
           {INFRA_NODES.map((node, i) => (
             <motion.div
               key={node.label}
@@ -134,6 +134,16 @@ export default function Infrastructure() {
                   <span className="font-display font-bold text-sm text-amber-400">Completed</span>
                   <p className="font-mono text-[10px] text-zinc-500">Zero Downtime</p>
                 </div>
+              </div>
+            </div>
+
+            {/* Network Diagram Placeholder */}
+            <div className="aspect-video w-full rounded-xl bg-gray-800/50 border border-white/10 flex items-center justify-center overflow-hidden mb-8">
+              <div className="flex flex-col items-center gap-2 text-zinc-600">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Z" />
+                </svg>
+                <span className="font-mono text-[10px] uppercase tracking-widest">Network Diagram</span>
               </div>
             </div>
 

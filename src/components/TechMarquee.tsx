@@ -36,7 +36,7 @@ export default function TechMarquee() {
   const marqueeItems = [...TECH_ITEMS, ...TECH_ITEMS];
 
   return (
-    <div className="relative w-full overflow-hidden py-8 bg-zinc-950/40 border-y border-zinc-900/60 my-6">
+    <div className="relative w-full max-w-full overflow-hidden py-8 bg-zinc-950/40 border-y border-zinc-900/60 my-6">
       {/* Left/Right Fades for premium transition effect */}
       <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-zinc-950 to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-zinc-950 to-transparent z-10 pointer-events-none" />
