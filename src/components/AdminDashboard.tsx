@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthProvider";
+import { supabase } from "@/lib/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import {
   LogOut,
@@ -46,6 +47,38 @@ export default function AdminDashboard() {
   // Availability toggle
   const [isAvailable, setIsAvailable] = useState(true);
 
+  // Load initial availability from Supabase
+  useEffect(() => {
+    const loadAvailability = async () => {
+      const { data } = await supabase
+        .from("site_settings")
+        .select("value")
+        .eq("key_name", "availability_status")
+        .single();
+      if (data) {
+        setIsAvailable(data.value === "available");
+      }
+    };
+    loadAvailability();
+  }, []);
+
+  const handleToggleAvailability = async () => {
+    const newValue = !isAvailable;
+    setIsAvailable(newValue);
+    const { error } = await supabase
+      .from("site_settings")
+      .update({ value: newValue ? "available" : "engaged" })
+      .eq("key_name", "availability_status");
+    if (error) {
+      console.error("Supabase availability update error:", error);
+      setIsAvailable(!newValue); // revert on failure
+      showSaveConfirmation("Error updating status");
+    } else {
+      console.log("Availability status updated to:", newValue ? "available" : "engaged");
+      showSaveConfirmation(newValue ? "Status: Available" : "Status: Engaged");
+    }
+  };
+
   // Project form state
   const [project, setProject] = useState<ProjectDraft>({
     title: "",
@@ -87,20 +120,46 @@ export default function AdminDashboard() {
   const handleSaveProject = async () => {
     if (!project.title) return;
     setSaving(true);
-    // Simulate Supabase write — replace with real insert later
-    await new Promise((r) => setTimeout(r, 600));
+    const { error } = await supabase.from("projects").insert([
+      {
+        title: project.title,
+        description: project.description,
+        tech_stack: project.tags,
+        status: project.status,
+        live_url: null,
+      },
+    ]);
     setSaving(false);
-    showSaveConfirmation("Project saved to Supabase");
-    setProject({ title: "", description: "", tags: [], tagInput: "", status: "In Progress" });
+    if (error) {
+      console.error("Supabase project insert error:", error);
+      showSaveConfirmation("Error: " + error.message);
+    } else {
+      console.log("Project saved to Supabase successfully");
+      showSaveConfirmation("Project saved to Supabase");
+      setProject({ title: "", description: "", tags: [], tagInput: "", status: "In Progress" });
+    }
   };
 
   const handleSaveContent = async () => {
     if (!content.title) return;
     setSaving(true);
-    await new Promise((r) => setTimeout(r, 600));
+    const { error } = await supabase.from("posts").insert([
+      {
+        title: content.title,
+        body: content.markdown,
+        youtube_url: content.youtubeUrl || null,
+        status: content.publishState,
+      },
+    ]);
     setSaving(false);
-    showSaveConfirmation(`Post ${content.publishState === "published" ? "published" : "saved as draft"}`);
-    setContent({ title: "", markdown: "", youtubeUrl: "", publishState: "draft" });
+    if (error) {
+      console.error("Supabase post insert error:", error);
+      showSaveConfirmation("Error: " + error.message);
+    } else {
+      console.log(`Post ${content.publishState === "published" ? "published" : "saved as draft"} to Supabase`);
+      showSaveConfirmation(`Post ${content.publishState === "published" ? "published" : "saved as draft"}`);
+      setContent({ title: "", markdown: "", youtubeUrl: "", publishState: "draft" });
+    }
   };
 
   const tabs: { id: Tab; label: string; icon: React.ReactNode }[] = [
@@ -392,7 +451,7 @@ export default function AdminDashboard() {
                     </p>
                   </div>
                   <button
-                    onClick={() => setIsAvailable(!isAvailable)}
+                    onClick={handleToggleAvailability}
                     className="cursor-pointer shrink-0"
                     aria-label="Toggle availability"
                   >

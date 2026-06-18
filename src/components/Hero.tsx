@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { ChevronRight, Download, Github, Linkedin } from "lucide-react";
 import { Link } from "react-router-dom";
+import { supabase } from "@/lib/supabaseClient";
 
 const TYPING_LINES = [
   "$ whoami",
@@ -21,6 +22,24 @@ export default function Hero({ onContactClick }: HeroProps) {
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [showCursor, setShowCursor] = useState(true);
+  const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
+
+  // Fetch availability status from Supabase
+  useEffect(() => {
+    const fetchStatus = async () => {
+      const { data } = await supabase
+        .from("site_settings")
+        .select("value")
+        .eq("key_name", "availability_status")
+        .single();
+      if (data) {
+        setIsAvailable(data.value === "available");
+      } else {
+        setIsAvailable(true); // fallback
+      }
+    };
+    fetchStatus();
+  }, []);
 
   // Blinking cursor
   useEffect(() => {
@@ -73,13 +92,29 @@ export default function Hero({ onContactClick }: HeroProps) {
         >
           {/* Status badge */}
           <div className="flex items-center gap-2">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
-            </span>
-            <span className="font-mono text-[11px] text-emerald-400/80 tracking-widest uppercase">
-              Available for opportunities
-            </span>
+            {isAvailable === null ? (
+              /* Skeleton loader while fetching */
+              <>
+                <span className="h-2.5 w-2.5 rounded-full bg-zinc-700 animate-pulse" />
+                <span className="h-3 w-24 bg-zinc-800 rounded animate-pulse" />
+              </>
+            ) : (
+              <>
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                    isAvailable ? "bg-emerald-400" : "bg-amber-400"
+                  }`} />
+                  <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${
+                    isAvailable ? "bg-emerald-500" : "bg-amber-500"
+                  }`} />
+                </span>
+                <span className={`font-mono text-[11px] tracking-widest uppercase ${
+                  isAvailable ? "text-emerald-400/80" : "text-amber-400/80"
+                }`}>
+                  {isAvailable ? "Available for opportunities" : "Currently Engaged"}
+                </span>
+              </>
+            )}
           </div>
 
           {/* Name & Title */}
