@@ -19,6 +19,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import NotFound from "@/components/NotFound";
 import ContactDrawer from "@/components/ContactDrawer";
+import BackToTop from "@/components/BackToTop";
 import { DEFAULT_PROJECTS, DEFAULT_BLOGS } from "@/defaultData";
 import { Project, BlogPost, ContactMessage } from "@/types";
 
@@ -229,6 +230,9 @@ export default function App() {
         onClose={() => setIsContactDrawerOpen(false)}
         onSubmit={(data) => handleAddContactMessage({ ...data, subject: "Secure Drawer Transmission" })}
       />
+
+      {/* Global Back to Top Button */}
+      <BackToTop />
     </div>
   );
 }
