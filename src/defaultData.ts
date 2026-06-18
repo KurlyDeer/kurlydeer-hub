@@ -47,7 +47,7 @@ Silo is a financial tracking tool designed to make budgeting effortless and visu
     category: "Web & Mobile",
     status: "In Progress",
     technologies: ["TypeScript", "React", "Python", "PostgreSQL"],
-    liveUrl: "https://clave-learning.example.com",
+    liveUrl: "https://clave.kurlydeer.com",
     createdAt: "2026-03-05",
     readme: `# Clave Language Platform
 
