@@ -43,9 +43,9 @@ Silo is a financial tracking tool designed to make budgeting effortless and visu
   {
     id: "proj_3",
     title: "Clave - Language Learning Platform",
-    description: "A comprehensive Spanish-to-English language learning platform featuring spaced repetition and interactive vocabulary exercises.",
+    description: "A custom-built, interactive language learning application optimized for web deployment.",
     category: "Web & Mobile",
-    status: "In Progress",
+    status: "Completed",
     technologies: ["TypeScript", "React", "Python", "PostgreSQL"],
     liveUrl: "https://clave.kurlydeer.com",
     createdAt: "2026-03-05",

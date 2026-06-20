@@ -55,6 +55,14 @@ export default function Navbar({ onContactClick }: NavbarProps) {
         {/* Right Side: Desktop Links */}
         <nav className="hidden md:flex items-center gap-6 md:gap-8">
           <a
+            href="https://clave.kurlydeer.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-[11px] text-emerald-400 hover:text-emerald-300 uppercase tracking-wider transition-colors font-bold"
+          >
+            Clave
+          </a>
+          <a
             href="#about"
             onClick={(e) => handleScroll(e, "about")}
             className={navLinkClass}
@@ -129,6 +137,14 @@ export default function Navbar({ onContactClick }: NavbarProps) {
             className="md:hidden overflow-hidden bg-zinc-950/95 backdrop-blur-xl border-b border-zinc-800/60"
           >
             <div className="flex flex-col gap-4 px-6 py-5">
+              <a
+                href="https://clave.kurlydeer.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-[11px] text-emerald-400 hover:text-emerald-300 uppercase tracking-wider transition-colors font-bold"
+              >
+                Clave
+              </a>
               <a
                 href="#about"
                 onClick={(e) => handleScroll(e, "about")}
